@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+i {
+  font-size: 48px;
+}
+$background-color: snow;
+.container-fluid {
+ 
+  background-color: $background-color;
+
+  .row {
+    h1 {
+      header {
+        margin: 70px;
+        width: 500px;
+      }
+    }
+  }
+}
+
+
+.container{
+  background-color: $background-color;
+
+}
+
+
+
+
+
+.text-center {
+    background-color: $background-color;
+    text-transform: capitalize;
+     
+ 
+  .grid-container {
+    margin: 30px;
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+    
+
+    div {
+      padding: 20px;
+      background-color: white;
+      text-transform: capitalize;
+      
+      .first {
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .gridflex{
+        display: flex;
+
+      }
+    }
+  }
+}
