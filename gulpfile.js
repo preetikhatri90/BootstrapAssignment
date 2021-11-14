@@ -1,11 +1,13 @@
 const gulp = require('gulp');
 const { src, dest, watch, series } = require('gulp');
 const htmlmin = require('gulp-htmlmin');
-// const sass = require('gulp-sass')(require('sass'));
+const cssnano = require('cssnano');
 const prefix = require('gulp-autoprefixer');
-// const minify = require('gulp-clean-css');
 const imagewebp = require('gulp-webp');
 const optimage = require('gulp-image');
+const concat = require('gulp-concat');
+const terser = require('gulp-terser');
+const sourcemaps = require('gulp-sourcemaps');
 
 
 //create functions 
@@ -16,15 +18,18 @@ function minhtml() {
     .pipe(dest('dist'));a
 }
 
-//scss
-// function compilescss () {
-//     return src('src/scss/*.scss')
-//     .pipe(sass())
-//     .pipe(prefix())
-//     .pipe(minify())
-//     .pipe(dest('dist/scss'))
-// }
-
+function cssTask() {
+    return src('SASS/* .css')
+      .pipe(sourcemaps.init())
+      .pipe(concat('style.css'))
+      .pipe(postcss([autoprefixer(), cssnano()])) //not all plugins work with postcss only the ones mentioned in their documentation
+      .pipe(sourcemaps.write('.'))
+      .pipe(dest('dist/assets/css'));
+  }
+  
+  function watchTask() {
+    watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
+  }
 //Images
 function optimizeimage() {
     return src('src/images/*.{jpg,png}')
@@ -47,12 +52,22 @@ function copyFonts(){
     return src('src/fonts/*').pipe(gulp.dest('dist/fonts'));
 }
 
+function jsTask() {
+    return src('src/js/*')
+      .pipe(sourcemaps.init())
+      .pipe(concat('all.js'))
+      .pipe(terser())
+      .pipe(sourcemaps.write('.'))
+      .pipe(dest('dist/js'));
+  }
 //default gulp
 exports.default = series(
     minhtml,
      optimizeimage,
      copyFonts,
     webpImage,
+    jsTask,
+
     watchtask
 );
 gulp.task('default', async  function(){
