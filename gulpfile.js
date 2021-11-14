@@ -19,7 +19,7 @@ function minhtml() {
 }
 
 function cssTask() {
-    return src('SASS/* .css')
+    return src('/src/SASS/* .css')
       .pipe(sourcemaps.init())
       .pipe(concat('style.css'))
       .pipe(postcss([autoprefixer(), cssnano()])) //not all plugins work with postcss only the ones mentioned in their documentation
@@ -27,9 +27,9 @@ function cssTask() {
       .pipe(dest('dist/assets/css'));
   }
   
-  function watchTask() {
-    watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
-  }
+//   function watchTask() {
+//     watch([cssPath, jsPath], { interval: 1000 }, parallel(cssTask, jsTask));
+//   }
 //Images
 function optimizeimage() {
     return src('src/images/*.{jpg,png}')
