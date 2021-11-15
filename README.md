@@ -1,18 +1,6 @@
 # BootstrapAssignment
 
 
-### Step 1
-
-```
-npm install
-```
-
-### Step 2
-
-```
-Go to dist/html/index.html to run the Project.
-```
-
 ### Language and Tools
 
 Visual Studio Code
